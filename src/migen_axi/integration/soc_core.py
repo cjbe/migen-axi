@@ -34,6 +34,8 @@ class SoCCore(Module):
         self._memory_regions = []  # seq of (name, origin, length)
         self._csr_regions = []  # seq of (name, origin, busword, csr_list|Memory)  # noqa
         self._constants = []  # seq of (name, value)
+        self._memory_groups = []  # list of (group_name, (group_member0, group_member1, ...))
+        self._csr_groups = []  # list of (group_name, (group_member0, group_member1, ...))
 
         self._axi_slaves = SlaveManager(max_addr)
 
@@ -80,16 +82,26 @@ class SoCCore(Module):
         self.add_axi_slave(origin, length, interface)
         self.add_memory_region(name, origin, length)
 
-    @property
-    def memory_regions(self):
+    def add_memory_group(self, group_name, members):
+        self._memory_groups.append((group_name, members))
+
+    def get_memory_regions(self):
         return self._memory_regions
 
-    @property
-    def csr_regions(self):
+    def get_memory_groups(self):
+        return self._memory_groups
+
+    def get_csr_regions(self):
         return self._csr_regions
 
-    @property
-    def constants(self):
+    def add_csr_group(self, group_name, members):
+        self._csr_groups.append((group_name, members))
+
+
+    def get_csr_groups(self):
+        return self._csr_groups
+
+    def get_constants(self):
         return self._constants
 
     def get_csr_dev_address(self, name, memory):
