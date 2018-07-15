@@ -28,6 +28,9 @@ class SoCCore(Module):
         self.platform = platform
         # self.clk_freq = clk_freq
 
+        self.integrated_rom_size = 0
+        self.cpu_type = "cortex-a9"
+
         self.csr_data_width = csr_data_width
         self.csr_address_width = csr_address_width
 
