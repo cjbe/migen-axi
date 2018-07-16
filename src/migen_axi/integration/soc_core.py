@@ -21,7 +21,7 @@ class SoCCore(Module):
     )
 
     def __init__(self, platform,
-                 csr_data_width=8,
+                 csr_data_width=32,
                  csr_address_width=14,
                  max_addr=0xc0000000,
                  ident="SoCCore"):
